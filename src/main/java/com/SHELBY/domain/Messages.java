@@ -1,9 +1,6 @@
 package com.SHELBY.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Messages {
@@ -15,13 +12,23 @@ public class Messages {
     private String text;
     private String tag;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    private Users author;
+
+    public String getAuthorName() {
+        return author != null ? author.getUsername() : "<none>";
+    }
+
     public Messages() {
     }
 
-    public Messages(String text, String tag) {
+    public Messages(String text, String tag, Users users) {
+        this.author = users;
         this.text = text;
         this.tag = tag;
     }
+
     public Integer getId() {
         return id;
     }
@@ -40,6 +47,14 @@ public class Messages {
 
     public String getTag() {
         return tag;
+    }
+
+    public Users getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Users author) {
+        this.author = author;
     }
 
     public void setTag(String tag) {
