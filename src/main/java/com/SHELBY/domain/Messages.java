@@ -16,6 +16,8 @@ public class Messages {
     @JoinColumn(name = "userId")
     private Users author;
 
+    private String filename;
+
     public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
     }
@@ -51,6 +53,14 @@ public class Messages {
 
     public Users getAuthor() {
         return author;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public void setAuthor(Users author) {
