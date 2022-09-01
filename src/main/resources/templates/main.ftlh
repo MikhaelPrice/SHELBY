@@ -9,10 +9,11 @@
             <button type="submit" class="btn btn-primary ml-2">Search</button>
         </form>
     </div>
-</div>
+
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Add new message
 </a>
+</div>
 <div class="collapse" id="collapseExample">
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
@@ -30,7 +31,7 @@
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Добавить</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
     </div>
