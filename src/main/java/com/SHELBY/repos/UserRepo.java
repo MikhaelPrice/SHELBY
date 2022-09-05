@@ -1,10 +1,8 @@
 package com.SHELBY.repos;
 
-import com.SHELBY.domain.Users;
+import com.SHELBY.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends JpaRepository<Users, Long> {
-    Users findByUsername(String username);
-
-    Users findByActivationCode(String code);
+public interface UserRepo extends JpaRepository<User, Long> {
+    User findByUsername(String username);
 }
