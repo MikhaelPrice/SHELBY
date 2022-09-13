@@ -24,8 +24,14 @@
                 <input type="text" name="tag" class="form-control" placeholder="Тег">
             </div>
             <div class="custom-file">
-                <input type="file" name="file" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <input type="file" name="file" id="customFile" placeholder="Choose file">
+                <#list messages as message>
+                    <#if message.filename??>
+                        <label class="custom-file-label" for="customFile">${message.filename}</label>
+                    <#else>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </#if>
+                </#list>
             </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group mt-3">

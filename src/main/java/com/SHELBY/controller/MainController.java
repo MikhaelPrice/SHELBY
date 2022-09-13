@@ -3,6 +3,7 @@ package com.SHELBY.controller;
 import com.SHELBY.domain.Message;
 import com.SHELBY.domain.User;
 import com.SHELBY.repos.MessageRepo;
+import com.SHELBY.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,19 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 public class MainController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     @Autowired
     private MessageRepo messageRepo;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -53,16 +52,8 @@ public class MainController {
             @RequestParam("file") MultipartFile file,
             Model model) throws IOException {
         Message message = new Message(text, tag, user);
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-            message.setFilename(resultFilename);
-        }
+        FileService fileService = new FileService();
+        message.setFilename(fileService.uploadFile(file, uploadPath));
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.addAttribute("messages", messages);
