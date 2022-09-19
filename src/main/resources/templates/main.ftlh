@@ -25,17 +25,10 @@
             </div>
             <div class="custom-file">
                 <input type="file" name="file" id="customFile" placeholder="Choose file">
-                <#list messages as message>
-                    <#if message.filename??>
-                        <label class="custom-file-label" for="customFile">${message.filename}</label>
-                    <#else>
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </#if>
-                </#list>
             </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary">Добавить</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
     </div>
@@ -45,14 +38,18 @@
     <#list messages as message>
     <div class="card my-3">
         <#if message.filename??>
-        <img src="/img/${message.filename}" class="card-img-top">
+            <img src="/img/${message.filename}" class="card-img-top">
         </#if>
         <div class="m-2">
+            <i>${message.tag}</i><br>
             <span>${message.text}</span>
-            <i>${message.tag}</i>
         </div>
         <div class="card-footer text-muted">
             ${message.authorName}
+            <table>
+            <tr><button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button></tr>&nbsp
+            <tr><button type="submit"><a href="/main">delete</a></button></tr>
+            </table>
         </div>
     </div>
     <#else>

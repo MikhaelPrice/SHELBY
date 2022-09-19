@@ -1,4 +1,4 @@
-package com.SHELBY.controller;
+package com.SHELBY.controllers;
 
 import com.SHELBY.domain.Role;
 import com.SHELBY.domain.User;

@@ -1,4 +1,4 @@
-package com.SHELBY.controller;
+package com.SHELBY.controllers;
 
 import com.SHELBY.domain.Message;
 import com.SHELBY.domain.User;
@@ -10,12 +10,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Controller
 public class MainController {
@@ -27,7 +27,7 @@ public class MainController {
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
+    public String greeting() {
         return "greeting";
     }
 
@@ -59,4 +59,35 @@ public class MainController {
         model.addAttribute("messages", messages);
         return "main";
     }
+
+    @GetMapping("/main/{id}/messageEdit")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        if (!messageRepo.existsById(id)) {
+            return "redirect:/main";
+        }
+        return "messageEdit";
+    }
+
+    @PostMapping("/main/{id}/messageEdit")
+    public String update(@PathVariable("id") Long id,
+                         @RequestParam String text,
+                         @RequestParam String tag
+    ) {
+        Message message = messageRepo.findById(id).orElseThrow();
+        message.setTag(tag);
+        message.setText(text);
+        if (messageRepo.findById(id).isPresent()) {
+            message.setAuthor(messageRepo.findById(id).get().getAuthor());
+        }
+        messageRepo.save(message);
+        return "redirect:/main";
+    }
+
+    @PostMapping("/main/{id}")
+    public String delete(@PathVariable(value = "id") Long id) {
+        Message message = messageRepo.findById(id).orElseThrow();
+        messageRepo.delete(message);
+        return "redirect:/main";
+    }
+
 }
