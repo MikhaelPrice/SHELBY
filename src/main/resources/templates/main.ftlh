@@ -1,5 +1,5 @@
+<#include 'parts/security.ftlh'>
 <#import "parts/common.ftlh" as c>
-
 <@c.page>
 <div class="form-row">
     <div class="form-group col-md-6">
@@ -9,11 +9,9 @@
         </form>
     </div>
 </div>
-
+<#if known>
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add new message
-</a>
-
+    Add new message</a>
 <div class="collapse" id="collapseExample">
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
@@ -33,6 +31,7 @@
         </form>
     </div>
 </div>
+</#if>
 
 <div class="card-columns">
     <#list messages as message>
@@ -47,8 +46,14 @@
         <div class="card-footer text-muted">
             ${message.authorName}
             <table>
-            <tr><button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button></tr>&nbsp
-            <tr><button type="submit"><a href="/main">delete</a></button></tr>
+                <tr>
+                    <button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button>
+                </tr>&nbsp
+                <tr>
+                    <form action="/main/${message.id}" method="post">
+                        <button type="submit">delete</button>
+                    </form>
+                </tr>
             </table>
         </div>
     </div>

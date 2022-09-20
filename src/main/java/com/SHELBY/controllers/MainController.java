@@ -65,6 +65,10 @@ public class MainController {
         if (!messageRepo.existsById(id)) {
             return "redirect:/main";
         }
+        if (messageRepo.findById(id).isPresent()) {
+            model.addAttribute("text", messageRepo.findById(id).get().getText());
+            model.addAttribute("tag", messageRepo.findById(id).get().getTag());
+        }
         return "messageEdit";
     }
 
