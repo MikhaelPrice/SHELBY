@@ -9,7 +9,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
-    private String tag;
+    private String date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -20,9 +20,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, User user) {
+    public Message(String text, String date, User user) {
         this.text = text;
-        this.tag = tag;
+        this.date = date;
         this.author = user;
     }
 
@@ -46,12 +46,12 @@ public class Message {
         this.text = text;
     }
 
-    public String getTag() {
-        return tag;
+    public String getDate() {
+        return date;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Long getId() {

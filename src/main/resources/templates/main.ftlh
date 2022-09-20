@@ -4,7 +4,7 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <form method="get" action="/main" class="form-inline">
-            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by tag">
+            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by date">
             <button type="submit" class="btn btn-primary ml-2">Search</button>
         </form>
     </div>
@@ -19,7 +19,7 @@
                 <input type="text" name="text" class="form-control" placeholder="Введите сообщение" />
             </div>
             <div class="form-group">
-                <input type="text" name="tag" class="form-control" placeholder="Тег">
+                <input type="text" name="date" class="form-control" placeholder="Дата">
             </div>
             <div class="custom-file">
                 <input type="file" name="file" id="customFile" placeholder="Choose file">
@@ -40,7 +40,7 @@
             <img src="/img/${message.filename}" class="card-img-top">
         </#if>
         <div class="m-2">
-            <i>${message.tag}</i><br>
+            <i>${message.date}</i><br>
             <span>${message.text}</span>
         </div>
         <div class="card-footer text-muted">
@@ -50,7 +50,7 @@
                     <button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button>
                 </tr>&nbsp
                 <tr>
-                    <form action="/main/${message.id}" method="post">
+                    <form action="/remove" method="post">
                         <button type="submit">delete</button>
                     </form>
                 </tr>

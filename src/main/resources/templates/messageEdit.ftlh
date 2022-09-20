@@ -10,7 +10,7 @@
             <input type="text" name="text" value="${text}" class="form-control">
         </div>
         <div class="form-group">
-            <input type="text" name="tag" value="${tag}" class="form-control">
+            <input type="text" name="date" value="${date}" class="form-control">
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <div class="form-group mt-3">

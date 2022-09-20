@@ -35,7 +35,7 @@ public class MainController {
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages = messageRepo.findAll();
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            messages = messageRepo.findByDate(filter);
         } else {
             messages = messageRepo.findAll();
         }
@@ -48,12 +48,14 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String tag,
+            @RequestParam String date,
             @RequestParam("file") MultipartFile file,
             Model model) throws IOException {
-        Message message = new Message(text, tag, user);
+        Message message = new Message(text, date, user);
         FileService fileService = new FileService();
-        message.setFilename(fileService.uploadFile(file, uploadPath));
+        if (!file.isEmpty()) {
+            message.setFilename(fileService.uploadFile(file, uploadPath));
+        }
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.addAttribute("messages", messages);
@@ -67,7 +69,7 @@ public class MainController {
         }
         if (messageRepo.findById(id).isPresent()) {
             model.addAttribute("text", messageRepo.findById(id).get().getText());
-            model.addAttribute("tag", messageRepo.findById(id).get().getTag());
+            model.addAttribute("date", messageRepo.findById(id).get().getDate());
         }
         return "messageEdit";
     }
@@ -75,10 +77,10 @@ public class MainController {
     @PostMapping("/main/{id}/messageEdit")
     public String update(@PathVariable("id") Long id,
                          @RequestParam String text,
-                         @RequestParam String tag
+                         @RequestParam String date
     ) {
         Message message = messageRepo.findById(id).orElseThrow();
-        message.setTag(tag);
+        message.setDate(date);
         message.setText(text);
         if (messageRepo.findById(id).isPresent()) {
             message.setAuthor(messageRepo.findById(id).get().getAuthor());
@@ -87,8 +89,8 @@ public class MainController {
         return "redirect:/main";
     }
 
-    @PostMapping("/main/{id}")
-    public String delete(@PathVariable(value = "id") Long id) {
+    @PostMapping("/remove")
+    public String delete(@PathVariable("id") Long id) {
         Message message = messageRepo.findById(id).orElseThrow();
         messageRepo.delete(message);
         return "redirect:/main";
