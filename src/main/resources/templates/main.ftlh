@@ -21,10 +21,10 @@
             <div class="form-group">
                 <input type="text" name="date" class="form-control" placeholder="Дата">
             </div>
-            <div class="custom-file">
-                <input type="file" name="file" id="customFile" placeholder="Choose file">
+            <div class="form-group">
+                <input type="text" name="url" class="form-control" placeholder="Добавьте ссылку на картинку">
             </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
@@ -37,8 +37,8 @@
     <#list messages as message>
     <#if name = message.authorName>
     <div class="card my-3">
-        <#if message.filename??>
-            <img src="/img/${message.filename}" class="card-img-top">
+        <#if message.url??>
+            <img src="${message.url}" class="card-img-top">
         </#if>
         <div class="m-2">
             <i>${message.date}</i><br>

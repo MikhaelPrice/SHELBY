@@ -10,19 +10,27 @@ public class Message {
     private Long id;
     private String text;
     private String date;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
 
-    private String filename;
-
     public Message() {
     }
 
-    public Message(String text, String date, User user) {
+    public Message(String text, String date, String url, User user) {
         this.text = text;
         this.date = date;
+        this.url = url;
         this.author = user;
     }
 
@@ -62,11 +70,4 @@ public class Message {
         this.id = id;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
 }

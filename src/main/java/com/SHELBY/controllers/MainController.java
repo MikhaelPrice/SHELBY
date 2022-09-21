@@ -3,25 +3,20 @@ package com.SHELBY.controllers;
 import com.SHELBY.domain.Message;
 import com.SHELBY.domain.User;
 import com.SHELBY.repos.MessageRepo;
-import com.SHELBY.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
 
     @Autowired
     private MessageRepo messageRepo;
-
-    @Value("${upload.path}")
-    private String uploadPath;
 
     @GetMapping("/")
     public String greeting() {
@@ -46,13 +41,9 @@ public class MainController {
             @AuthenticationPrincipal User user,
             @RequestParam String text,
             @RequestParam String date,
-            @RequestParam("file") MultipartFile file,
-            Model model) throws IOException {
-        Message message = new Message(text, date, user);
-        if (!file.isEmpty()) {
-            FileService fileService = new FileService();
-            message.setFilename(fileService.uploadFile(file, uploadPath));
-        }
+            @RequestParam String url,
+            Model model) {
+        Message message = new Message(text, date, url, user);
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.addAttribute("messages", messages);
@@ -67,6 +58,7 @@ public class MainController {
         if (messageRepo.findById(id).isPresent()) {
             model.addAttribute("text", messageRepo.findById(id).get().getText());
             model.addAttribute("date", messageRepo.findById(id).get().getDate());
+            model.addAttribute("url", messageRepo.findById(id).get().getUrl());
         }
         return "messageEdit";
     }
@@ -74,11 +66,13 @@ public class MainController {
     @PostMapping("/main/{id}/messageEdit")
     public String update(@PathVariable("id") Long id,
                          @RequestParam String text,
-                         @RequestParam String date
+                         @RequestParam String date,
+                         @RequestParam String url
     ) {
         Message message = messageRepo.findById(id).orElseThrow();
         message.setDate(date);
         message.setText(text);
+        message.setUrl(url);
         if (messageRepo.findById(id).isPresent()) {
             message.setAuthor(messageRepo.findById(id).get().getAuthor());
         }
