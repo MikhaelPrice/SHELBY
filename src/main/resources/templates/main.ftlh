@@ -35,6 +35,7 @@
 
 <div class="card-columns">
     <#list messages as message>
+    <#if name = message.authorName>
     <div class="card my-3">
         <#if message.filename??>
             <img src="/img/${message.filename}" class="card-img-top">
@@ -55,8 +56,7 @@
             </table>
         </div>
     </div>
-    <#else>
-    No message
-    </#list>
+</#if>
+</#list>
 </div>
 </@c.page>
