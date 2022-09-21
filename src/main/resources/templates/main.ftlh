@@ -50,9 +50,7 @@
                     <button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button>
                 </tr>&nbsp
                 <tr>
-                    <form action="/remove" method="post">
-                        <button type="submit">delete</button>
-                    </form>
+                    <button type="submit" value="Delete"><a href="/main/${message.id}">delete</a></button>
                 </tr>
             </table>
         </div>

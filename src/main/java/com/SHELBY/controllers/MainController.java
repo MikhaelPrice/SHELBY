@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -52,8 +49,8 @@ public class MainController {
             @RequestParam("file") MultipartFile file,
             Model model) throws IOException {
         Message message = new Message(text, date, user);
-        FileService fileService = new FileService();
         if (!file.isEmpty()) {
+            FileService fileService = new FileService();
             message.setFilename(fileService.uploadFile(file, uploadPath));
         }
         messageRepo.save(message);
@@ -89,10 +86,9 @@ public class MainController {
         return "redirect:/main";
     }
 
-    @PostMapping("/remove")
+    @GetMapping("/main/{id}")
     public String delete(@PathVariable("id") Long id) {
-        Message message = messageRepo.findById(id).orElseThrow();
-        messageRepo.delete(message);
+        messageRepo.delete(messageRepo.findById(id).orElseThrow());
         return "redirect:/main";
     }
 
