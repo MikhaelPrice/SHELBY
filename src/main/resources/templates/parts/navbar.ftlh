@@ -1,7 +1,10 @@
 <#include 'security.ftlh'>
 <#import "login.ftlh" as l>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Shelby</a>
+    <a class="navbar-brand" href="/">
+        <img src="https://th.bing.com/th/id/R.f46ab258aa80aae5b37dbedf46bc03bc?rik=rd9%2ftSVLASg%2f2Q&pid=ImgRaw&r=0"
+        height="30" width="50">
+        Shelby</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

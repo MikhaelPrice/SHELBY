@@ -16,13 +16,13 @@
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" name="text" class="form-control" placeholder="Введите сообщение" />
+                <input type="text" name="text" class="form-control" placeholder="Enter a message" />
             </div>
             <div class="form-group">
-                <input type="text" name="date" class="form-control" placeholder="Дата">
+                <input type="text" name="date" class="form-control" placeholder="Date">
             </div>
             <div class="form-group">
-                <input type="text" name="url" class="form-control" placeholder="Добавьте ссылку на картинку">
+                <input type="text" name="url" class="form-control" placeholder="Add a link of the picture">
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group mt-3">
