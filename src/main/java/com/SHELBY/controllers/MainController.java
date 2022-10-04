@@ -73,9 +73,6 @@ public class MainController {
         message.setDate(date);
         message.setText(text);
         message.setUrl(url);
-        if (messageRepo.findById(id).isPresent()) {
-            message.setAuthor(messageRepo.findById(id).get().getAuthor());
-        }
         messageRepo.save(message);
         return "redirect:/main";
     }

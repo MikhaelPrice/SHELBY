@@ -2,7 +2,7 @@
 
 <@c.page>
 <head>
-    <h3>Редактирование записи</h3><br>
+    <h3>Record updating</h3><br>
 </head>
 <div>
     <form method="post">

@@ -41,7 +41,6 @@ public class UserController {
             @RequestParam("userId") User user
     ){
         user.setUsername(username);
-
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
@@ -54,5 +53,4 @@ public class UserController {
         userRepo.save(user);
         return "redirect:/user";
     }
-
 }

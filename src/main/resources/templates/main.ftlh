@@ -16,7 +16,7 @@
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" name="text" class="form-control" placeholder="Enter a message" />
+                <input type="text" name="text" class="form-control" placeholder="Enter a message"/>
             </div>
             <div class="form-group">
                 <input type="text" name="date" class="form-control" placeholder="Date">
@@ -46,12 +46,16 @@
         </div>
         <div class="card-footer text-muted">
             ${message.authorName}
-            <table>
+            &nbsp<table>
                 <tr>
-                    <button type="submit"><a href="/main/${message.id}/messageEdit">edit</a></button>
+                    <a href="/main/${message.id}/messageEdit">
+                        <button type="submit" class="btn btn-outline-primary">edit</button>
+                    </a>
                 </tr>&nbsp
                 <tr>
-                    <button type="submit" value="Delete"><a href="/main/${message.id}">delete</a></button>
+                    <a href="/main/${message.id}">
+                        <button type="submit" value="Delete" class="btn btn-outline-danger">delete</button>
+                    </a>
                 </tr>
             </table>
         </div>

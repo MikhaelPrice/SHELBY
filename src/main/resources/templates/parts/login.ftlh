@@ -15,7 +15,7 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
     <#if !isRegisterForm>
         <button type="submit" class="btn btn-outline-success">
-            <a href="/registration">Log In</a>
+            <a href="/registration">Sign Up</a>
         </button>&nbsp&nbsp
     </#if>
     <button class="btn btn-primary" type="submit"><#if isRegisterForm>Create<#else>Sign In</#if></button>
