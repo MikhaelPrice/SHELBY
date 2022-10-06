@@ -1,4 +1,4 @@
-package com.SHELBY.calculator;
+package com.SHELBY.calculator.exceptions;
 
 public class calcException extends Exception {
     public calcException() {

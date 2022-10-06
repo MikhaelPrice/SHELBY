@@ -1,6 +1,6 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.exceptions.calcException;
 
 public interface Operation {
     Var add(Var other) throws calcException;

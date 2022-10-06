@@ -1,6 +1,7 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.controllers.CalculatorController;
+import com.SHELBY.calculator.exceptions.calcException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,32 +35,38 @@ public abstract class Var implements Operation {
         } else if (vars.containsKey(operand)) {
             return vars.get(operand);
         } else {
-            throw new calcException("Невозможно преобразовать выражение");
+            CalculatorController.errorMessage = "Невозможно преобразовать выражение. Проверьте корректность написания выражения";
+            throw new calcException("Невозможно преобразовать выражение. Проверьте корректность написания выражения");
         }
     }
 
     @Override
     public Var add(Var other) throws calcException {
+        CalculatorController.errorMessage = "Нельзя сложить: " + this + "+" + other;
         throw new calcException("Нельзя сложить: " + this + "+" + other);
     }
 
     @Override
     public Var sub(Var other) throws calcException {
+        CalculatorController.errorMessage = "Нельзя вычесть: " + this + "-" + other;
         throw new calcException("Нельзя вычесть: " + this + "-" + other);
     }
 
     @Override
     public Var mul(Var other) throws calcException {
+        CalculatorController.errorMessage = "Нельзя умножить: " + this + "*" + other;
         throw new calcException("Нельзя умножить: " + this + "*" + other);
     }
 
     @Override
     public Var div(Var other) throws calcException {
-        throw new calcException("Нельзя разделить: " + this + ":" + other);
+        CalculatorController.errorMessage = "Нельзя разделить: " + this + "/" + other;
+        throw new calcException("Нельзя разделить: " + this + "/" + other);
     }
 
     @Override
     public Var grade(Var other) throws calcException {
+        CalculatorController.errorMessage = "Нельзя возвести в степень: " + this + "^" + other;
         throw new calcException("Нельзя возвести в степень: " + this + "^" + other);
     }
 }

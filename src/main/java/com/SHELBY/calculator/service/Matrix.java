@@ -1,10 +1,12 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.controllers.CalculatorController;
+import com.SHELBY.calculator.exceptions.calcException;
 
 import java.util.Arrays;
 
 public class Matrix extends Var {
+
     private double[][] value;
     private int sizeI;
     private int sizeJ;
@@ -84,6 +86,7 @@ public class Matrix extends Var {
                 }
             }
             if (((Scalar) other).getValue() == 0) {
+                CalculatorController.errorMessage = "Нельзя делить на нуль";
                 throw new calcException("Нельзя делить на нуль");
             }
             for (int i = 0; i < res.length; i++) {
@@ -122,6 +125,7 @@ public class Matrix extends Var {
                 }
             }
             if (getSizeI() != ((Matrix) other).sizeI || getSizeJ() != ((Matrix) other).sizeJ) {
+                CalculatorController.errorMessage = "Матрицы разного порядка";
                 throw new calcException("Матрицы разного порядка");
             }
             for (int i = 0; i < res.length; i++) {
@@ -160,6 +164,7 @@ public class Matrix extends Var {
                 }
             }
             if (getSizeI() != ((Matrix) other).sizeI || getSizeJ() != ((Matrix) other).sizeJ) {
+                CalculatorController.errorMessage = "Матрицы разного порядка";
                 throw new calcException("Матрицы разного порядка");
             }
             for (int i = 0; i < res.length; i++) {
@@ -198,6 +203,7 @@ public class Matrix extends Var {
             double[] result = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
             double[] newVector = new double[res.length];
             if (res[0].length != result.length) {
+                CalculatorController.errorMessage = "Матрица и вектор разной длины";
                 throw new calcException("Матрица и вектор разной длины");
             }
             for (int i = 0; i < res.length; i++) {
@@ -220,6 +226,7 @@ public class Matrix extends Var {
                 }
             }
             if (res[0].length != result.length) {
+                CalculatorController.errorMessage = "Матрицы разного порядка";
                 throw new calcException("Матрицы разного порядка");
             }
             double[][] newMatrix = new double[res.length][result[0].length];

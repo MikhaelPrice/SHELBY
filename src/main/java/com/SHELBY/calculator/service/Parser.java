@@ -1,18 +1,17 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.controllers.CalculatorController;
+import com.SHELBY.calculator.exceptions.calcException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
 
     private static final String[] priority = {"=", "+", "-", "*", "/", "^"};
-    public static ResourceBundle rb;
 
     private String expressionSimplification(String str) throws calcException {
         Parser parser = new Parser();
@@ -43,6 +42,7 @@ public class Parser {
         }
         Var one = Var.createVar(strOne);
         if (one == null || two == null) {
+            CalculatorController.errorMessage = "Нет переменной";
             throw new calcException("Нет переменной");
         }
         switch (strOperation) {
@@ -57,7 +57,8 @@ public class Parser {
             case "^":
                 return one.grade(two);
         }
-        throw new calcException("Невозможно распознать операцию");
+        CalculatorController.errorMessage = "Невозможно распознать операцию. Проверьте корректность написания выражения";
+        throw new calcException("Невозможно распознать операцию. Проверьте корректность написания выражения");
     }
 
     private int currentOperationIndex(List<String> operations) {

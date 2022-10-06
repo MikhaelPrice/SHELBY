@@ -1,6 +1,7 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.controllers.CalculatorController;
+import com.SHELBY.calculator.exceptions.calcException;
 
 import java.util.Arrays;
 
@@ -43,6 +44,7 @@ public class Vector extends Var {
         } else if (other instanceof Vector) {
             double[] res = Arrays.copyOf(value, value.length);
             if (((Vector) other).value.length != this.value.length) {
+                CalculatorController.errorMessage = "Векторы разной длины";
                 throw new calcException("Векторы разной длины");
             }
             for (int i = 0; i < res.length; i++) {
@@ -59,6 +61,7 @@ public class Vector extends Var {
         if (other instanceof Scalar) {
             double[] res = Arrays.copyOf(value, value.length);
             if (((Scalar) other).getValue() == 0) {
+                CalculatorController.errorMessage = "На нуль делить нельзя";
                 throw new calcException("На нуль делить нельзя");
             }
             for (int i = 0; i < res.length; i++) {
@@ -73,7 +76,8 @@ public class Vector extends Var {
     @Override
     public Var grade(Var other) throws calcException {
         if (!(other instanceof Scalar)) {
-            throw new calcException("Нельзя возводить в степень в нескалярные величины");
+            CalculatorController.errorMessage = "Нельзя возводить в степень в нескалярные величины";
+            throw new calcException();
         }
         double otherToDouble = Double.parseDouble(other.toString());
         if (otherToDouble == 0) {
@@ -136,6 +140,7 @@ public class Vector extends Var {
             double sum = 0;
             double[] res = Arrays.copyOf(value, value.length);
             if (((Vector) other).value.length != this.value.length) {
+                CalculatorController.errorMessage = "Векторы разной длины";
                 throw new calcException("Векторы разной длины");
             }
             for (int i = 0; i < res.length; i++) {
@@ -154,6 +159,7 @@ public class Vector extends Var {
             double[] result = Arrays.copyOf(value, value.length);
             double[][] newMatrix = new double[res[0].length][1];
             if (result.length != res.length) {
+                CalculatorController.errorMessage = "Матрица и вектор разного порядка";
                 throw new calcException("Матрица и вектор разного порядка");
             }
             for (int i = 0; i < res[0].length; i++) {
@@ -178,6 +184,7 @@ public class Vector extends Var {
         } else if (other instanceof Vector) {
             double[] res = Arrays.copyOf(value, value.length);
             if (((Vector) other).value.length != this.value.length) {
+                CalculatorController.errorMessage = "Векторы разной длины";
                 throw new calcException("Векторы разной длины");
             }
             for (int i = 0; i < res.length; i++) {

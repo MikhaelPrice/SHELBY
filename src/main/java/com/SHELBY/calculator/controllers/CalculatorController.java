@@ -1,10 +1,9 @@
 package com.SHELBY.calculator.controllers;
 
 import com.SHELBY.calculator.service.Parser;
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.exceptions.calcException;
 import com.SHELBY.calculator.domain.Calculations;
 import com.SHELBY.calculator.repo.CalculationsRepository;
-import com.SHELBY.calculator.service.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,8 @@ public class CalculatorController {
     @Autowired
     private CalculationsRepository calculationsRepository;
 
+    public static String errorMessage;
+
     @GetMapping
     public String getExpression(@RequestParam(required = false, defaultValue = "") String expression,
                                 Model model) {
@@ -25,7 +26,7 @@ public class CalculatorController {
         try {
             result = parser.calc(expression.trim()).toString();
         } catch (calcException e) {
-            result = e.getMessage();
+            result = errorMessage;
         }
         model.addAttribute("expression", expression);
         model.addAttribute("result", result);

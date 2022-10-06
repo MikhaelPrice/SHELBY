@@ -1,6 +1,7 @@
 package com.SHELBY.calculator.service;
 
-import com.SHELBY.calculator.calcException;
+import com.SHELBY.calculator.controllers.CalculatorController;
+import com.SHELBY.calculator.exceptions.calcException;
 
 class Scalar extends Var {
     private double value;
@@ -67,6 +68,7 @@ class Scalar extends Var {
     public Var div(Var other) throws calcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).value == 0) {
+                CalculatorController.errorMessage = "На нуль делить нельзя";
                 throw new calcException("На нуль делить нельзя");
             }
             double div = this.value / ((Scalar) other).value;
@@ -78,6 +80,7 @@ class Scalar extends Var {
     @Override
     public Var grade(Var other) throws calcException {
         if (!(other instanceof Scalar)) {
+            CalculatorController.errorMessage = "Нельзя возводить в степень в нескалярные величины";
             throw new calcException("Нельзя возводить в степень в нескалярные величины");
         }
         double res = Math.pow(this.getValue(), Double.parseDouble(other.toString()));
