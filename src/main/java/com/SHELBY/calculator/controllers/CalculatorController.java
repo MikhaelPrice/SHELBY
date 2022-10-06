@@ -29,6 +29,8 @@ public class CalculatorController {
         }
         model.addAttribute("expression", expression);
         model.addAttribute("result", result);
+        Calculations calculations = new Calculations(expression, result);
+        calculationsRepository.save(calculations);
         return "calculator";
     }
 

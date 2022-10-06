@@ -40,7 +40,7 @@
 <body class="text-center">
 
 <h5 name="Greeting" class="h3 mb-3 fw-normal">Matrix, Vector and Scalar calculator</h5>
-    <form method="get" name="calculator" action="/calculator">
+    <form name="calculator" action="/calculator">
         <div class="form-group">
             <input type="text" class="form-control" name="expression" value="${expression}" placeholder="Enter an expression to calculate"><br>
             <input type="button" value="0" onClick="document.calculator.expression.value+='0'">
@@ -70,6 +70,7 @@
         <div class="form-group">
             <button class="w-20 btn btn-lg btn-primary" type="submit">Count</button><br>
         </div>
+    </form>
         <br><div class="form-group">
             <output class="form-control" name="result" align="left">
                 <#if result??>
@@ -77,7 +78,6 @@
                 </#if>
             </output>
         </div>
-    </form>
     <p><a href="vars">
         <button class="btn btn-primary">Show variables</button>
     </a></p>
