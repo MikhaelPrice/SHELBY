@@ -28,10 +28,12 @@ public class CalculatorController {
         } catch (calcException e) {
             result = errorMessage;
         }
-        model.addAttribute("expression", expression);
-        model.addAttribute("result", result);
         Calculations calculations = new Calculations(expression, result);
         calculationsRepository.save(calculations);
+        if (calculationsRepository.findById(calculations.getId()).isPresent()) {
+            model.addAttribute("expression", calculationsRepository.findById(calculations.getId()).get().getExpression());
+            model.addAttribute("result", calculationsRepository.findById(calculations.getId()).get().getResult());
+        }
         return "calculator";
     }
 

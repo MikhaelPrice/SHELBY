@@ -1,5 +1,13 @@
 <#macro login path isRegisterForm>
 <form action="${path}" method="post">
+    <#if isRegisterForm>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email : </label>
+        <div class="com-sm-10">
+            <input type="text" name="email" class="form-control" placeholder="Email" pattern="^[A-Za-z0-9][A-Za-z0-9\.-_]*[A-Za-z0-9]*@([A-Za-z0-9]+([A-Za-z0-9-]*[A-Za-z0-9]+)*\.)+[A-Za-z]*$"/>
+        </div>
+    </div>
+    </#if>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">User Name : </label>
         <div class="com-sm-10">
