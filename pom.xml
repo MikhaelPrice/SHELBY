@@ -37,7 +37,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<!-- DataBase support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
