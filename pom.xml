@@ -104,7 +104,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>SHELBY.ShelbyApplication</mainClass>
+							<mainClass>com.SHELBY.ShelbyApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
