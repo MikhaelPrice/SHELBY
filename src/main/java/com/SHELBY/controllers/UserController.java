@@ -28,7 +28,7 @@ public class UserController {
         return "userList";
     }
 
-    @GetMapping("{user}")
+    @GetMapping("{user}/userEdit")
     public String userEditForm(@PathVariable User user, Model model){
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
@@ -51,6 +51,12 @@ public class UserController {
             }
         }
         userRepo.save(user);
+        return "redirect:/user";
+    }
+
+    @GetMapping("{id}")
+    public String delete(@PathVariable("id") Long id){
+        userRepo.delete(userRepo.findById(id).orElseThrow());
         return "redirect:/user";
     }
 }
